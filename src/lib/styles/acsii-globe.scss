@@ -1,0 +1,63 @@
+$bg-color: #0d0d0d;
+$text-orange: rgba(255, 180, 100, 0.7);
+$text-white: rgba(255, 255, 255, 0.95);
+$scanline-opacity: 0.04;
+
+.ascii-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: $bg-color;
+
+  // CRT Scanlines
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, $scanline-opacity) 0px,
+      rgba(0, 0, 0, $scanline-opacity) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  // Vignette
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 40%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    pointer-events: none;
+    z-index: 6;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    animation: subtle-flicker 4s infinite;
+  }
+}
+
+@keyframes subtle-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 0.98; }
+  94% { opacity: 1; }
+  96% { opacity: 0.99; }
+}
