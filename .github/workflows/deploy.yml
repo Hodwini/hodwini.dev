@@ -39,6 +39,9 @@ jobs:
       - name: Add .nojekyll file
         run: touch build/.nojekyll
 
+      - name: Remove README if exists
+        run: rm -f build/README.md
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
